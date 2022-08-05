@@ -29,10 +29,10 @@ pipeline {
 	post {
 		changed {
 			script {
-				slackSend(
-						color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
-						channel: '#sagan-content',
-						message: "${currentBuild.fullDisplayName} - `${currentBuild.currentResult}`\n${env.BUILD_URL}")
+				// slackSend(
+				// 		color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
+				// 		channel: '#sagan-content',
+				// 		message: "${currentBuild.fullDisplayName} - `${currentBuild.currentResult}`\n${env.BUILD_URL}")
 				emailext(
 						subject: "[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}",
 						mimeType: 'text/html',
