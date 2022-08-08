@@ -32,7 +32,7 @@ pipeline {
 			}
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				sh './gradlew sonarqube'
+				sh './complete/gradlew sonarqube'
 			}
 		}
 
