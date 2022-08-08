@@ -23,16 +23,24 @@ pipeline {
 				sh 'test/run.sh'
 			}
 		}
+		stage("test: SonarQube") {
+			agent {
+				docker {
+					image 'adoptopenjdk/openjdk8:latest'
+					args '-v $HOME/.m2:/tmp/jenkins-home/.m2'
+				}
+			}
+			options { timeout(time: 30, unit: 'MINUTES')}
+			steps {
+				sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=discobot'
+			}
+		}
 
 	}
 
 	post {
 		changed {
 			script {
-				// slackSend(
-				// 		color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
-				// 		channel: '#sagan-content',
-				// 		message: "${currentBuild.fullDisplayName} - `${currentBuild.currentResult}`\n${env.BUILD_URL}")
 				emailext(
 						subject: "[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}",
 						mimeType: 'text/html',
