@@ -35,6 +35,7 @@ pipeline {
 			steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-cred', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'kubectl apply -f interview-deployment.yml'
+				}
 			}
 		}
 
