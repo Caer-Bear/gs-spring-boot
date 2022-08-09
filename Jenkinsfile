@@ -32,10 +32,7 @@ pipeline {
 			}
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				sh '''
-					cd complete
-					./gradlew sonarqube
-					'''
+				sh 'chmod +x /complete/gradlew && /complete/gradlew sonarqube'
 			}
 		}
 
