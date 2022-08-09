@@ -14,7 +14,7 @@ pipeline {
 		buildDiscarder(logRotator(numToKeepStr: '14'))
 	}
 	stages {
-		stage("test: baseline (jdk8)") {
+		stage("test: unit tests") {
 			options { timeout(time: 30, unit: 'MINUTES') }
 			steps {
 				sh 'test/run.sh'
@@ -23,15 +23,18 @@ pipeline {
 		stage("test: SonarQube") {
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				sh 'chmod +x /complete/gradlew && /complete/gradlew sonarqube'
+				sh 'pwd'
+				sh '~/complete/gradlew sonarqube'
 			}
 		}
-		stage('Docker Build') {
+		stage('build: dockerize app') {
+			options { timeout(time: 30, unit: 'MINUTES')}
             steps {
                 sh 'docker build -t complete/interview-app:$BUILD_NUMBER .'
             }
         }
-		stage('Deployment') {
+		stage('deploy: kubectl') {
+			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-cred', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'kubectl apply -f interview-deployment.yml'
