@@ -45,10 +45,8 @@ pipeline {
 		changed {
 			script {
 				emailext(
-						subject: "[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}",
-						mimeType: 'text/html',
-						recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-						body: "<a href=\"${env.BUILD_URL}\">${currentBuild.fullDisplayName} is reported as ${currentBuild.currentResult}</a>")
+					emailext body: '<a href=\\"${env.BUILD_URL}\\">${currentBuild.fullDisplayName} is reported as ${currentBuild.currentResult}</a>', mimeType: 'text/html', subject: '[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}', to: 'eli627@revature.net'
+				)
 			}
 		}
 	}
