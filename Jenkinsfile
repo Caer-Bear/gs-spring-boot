@@ -5,10 +5,6 @@ pipeline {
 			args '-v $HOME/.m2:/tmp/jenkins-home/.m2'
 		}
 	}
-
-	triggers {
-		pollSCM 'H/10 * * * *'
-	}
 	options {
 		disableConcurrentBuilds()
 		buildDiscarder(logRotator(numToKeepStr: '14'))
@@ -24,7 +20,7 @@ pipeline {
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
 				dir("complete") {
-					sh './gradlew sonarqube'
+					sh './gradlew sonarqube --stacktrace --info --scan'
 				}
 			}
 		}
