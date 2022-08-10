@@ -23,8 +23,9 @@ pipeline {
 		stage("test: SonarQube") {
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				sh 'pwd'
-				sh '/complete/gradlew sonarqube'
+				dir("complete") {
+					sh './gradlew sonarqube'
+				}
 			}
 		}
 		stage('build: dockerize app') {
