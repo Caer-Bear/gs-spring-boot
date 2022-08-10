@@ -19,8 +19,10 @@ pipeline {
 		stage("test: SonarQube") {
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				dir("complete") {
-					sh './gradlew sonarqube --stacktrace --info --scan'
+				withSonarQubeEnv(credentialsId: 'SONAR_TOKEN') {
+					dir("complete") {
+						sh './gradlew sonarqube --stacktrace --info --scan'
+					}
 				}
 			}
 		}
