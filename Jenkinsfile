@@ -1,7 +1,7 @@
 pipeline {
 	agent {
 		docker {
-			image 'adoptopenjdk/openjdk8:latest'
+			image 'adoptopenjdk/openjd11:latest'
 			args '-v $HOME/.m2:/tmp/jenkins-home/.m2'
 		}
 	}
