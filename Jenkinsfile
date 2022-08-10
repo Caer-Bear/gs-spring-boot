@@ -4,7 +4,10 @@ node {
   }
   stage('SonarQube Analysis') {
     withSonarQubeEnv() {
-      sh "./gradlew sonarqube"
+      dir("complete") {
+        sh "./gradlew sonarqube"
+      }
+
     }
   }
 }
