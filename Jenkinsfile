@@ -3,11 +3,10 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    withSonarQubeEnv() {
+    withSonarQubeEnv {
       dir("complete") {
         sh "./gradlew sonarqube"
       }
-
     }
   }
 }
