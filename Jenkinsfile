@@ -16,24 +16,21 @@ pipeline {
 				sh 'test/run.sh'
 			}
 		}
-	stages {
 		stage('SonarQube Analysis') {
-			withSonarQubeEnv {
-				dir("complete") {
-					sh "./gradlew sonarqube"
+			steps {
+				withSonarQubeEnv {
+					dir("complete") {
+						sh "./gradlew sonarqube"
+					}
 				}
 			}
 		}
-	}
-	stages {
 		stage('build: dockerize app') {
 			options { timeout(time: 30, unit: 'MINUTES')}
             steps {
                 sh 'docker build -t complete/interview-app:$BUILD_NUMBER .'
             }
         }
-	}
-	stages{
 		stage('deploy: kubectl') {
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
@@ -42,7 +39,7 @@ pipeline {
 				}
 			}
 		}
-	}
+
 	}
 
 	// post {
