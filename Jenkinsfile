@@ -40,14 +40,14 @@ pipeline {
 
 	}
 
-	post {
-		changed {
-			script {
-				emailext {
-					body: '<a href=\\"${env.BUILD_URL}\\">${currentBuild.fullDisplayName} is reported as ${currentBuild.currentResult}</a>', mimeType: 'text/html', subject: '[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}', to: 'eli627@revature.net'
-				}
-			}
-		}
-	}
+	// post {
+	// 	changed {
+	// 		script {
+	// 			emailext {
+	// 				body: '<a href=\\"${env.BUILD_URL}\\">${currentBuild.fullDisplayName} is reported as ${currentBuild.currentResult}</a>', mimeType: 'text/html', subject: '[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}', to: 'eli627@revature.net'
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
  
