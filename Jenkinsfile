@@ -20,7 +20,7 @@ pipeline {
 			agent none
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				withSonarQubeEnv {
+				withSonarQubeEnv ('SonarQube') {
 					dir("complete") {
 						sh "./gradlew sonarqube"
 					}
