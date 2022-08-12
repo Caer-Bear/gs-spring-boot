@@ -17,13 +17,12 @@ pipeline {
 			}
 		}
 		stage('test: SonarQube') {
-			agent none {
-				options { timeout(time: 30, unit: 'MINUTES')}
-				steps {
-					withSonarQubeEnv {
-						dir("complete") {
-							sh "./gradlew sonarqube"
-						}
+			agent none
+			options { timeout(time: 30, unit: 'MINUTES')}
+			steps {
+				withSonarQubeEnv {
+					dir("complete") {
+						sh "./gradlew sonarqube"
 					}
 				}
 			}
