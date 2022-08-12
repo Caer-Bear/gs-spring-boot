@@ -16,8 +16,8 @@ pipeline {
 				sh 'test/run.sh'
 			}
 		}
-		agent none
 		stage('test: SonarQube') {
+			agent none
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
 				withSonarQubeEnv {
