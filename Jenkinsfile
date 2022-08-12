@@ -17,7 +17,7 @@ pipeline {
 			}
 		}
 		stage('test: SonarQube') {
-			agent none
+			agent any
 			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
 				withSonarQubeEnv ('SonarQube') {
