@@ -16,9 +16,11 @@ pipeline {
 				sh 'test/run.sh'
 			}
 		}
-		stage('SonarQube Analysis') {
+		agent none
+		stage('test: SonarQube') {
+			options { timeout(time: 30, unit: 'MINUTES')}
 			steps {
-				withSonarQubeEnv ('SonarQube') {
+				withSonarQubeEnv {
 					dir("complete") {
 						sh "./gradlew sonarqube"
 					}
